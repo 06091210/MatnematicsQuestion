@@ -2,3 +2,6 @@ img.example1 {
   width: 50%;
   height: 50%;
 }
+ul {
+  display: flex;
+}
