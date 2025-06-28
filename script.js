@@ -1,3 +1,3 @@
-function write() {
+function Write() {
   document.write('<p>Hello</p>');
 }
