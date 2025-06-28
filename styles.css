@@ -1,4 +1,4 @@
 img.example1 {
-  width: (auto*0.5)px;
-  height: (auto*0.5)px;
+  width: 50%;
+  height: 50%;
 }
