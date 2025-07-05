@@ -41,7 +41,7 @@
   <h2>カード図鑑</h2>
   <div id="cardList" class="card-container"></div>
 
-  <h2>あなたのデッキ（最大20枚）</h2>
+  <h2>あなたのデッキ</h2>
   <div id="deckList" class="deck-container"></div>
 
   <script>
@@ -92,8 +92,8 @@
     }
 
     function addToDeck(card) {
-      if (deck.length >= 20) {
-        alert("デッキは20枚までです！");
+      if (deck.length >= 50) {
+        alert("デッキは50枚までです！");
         return;
       }
       deck.push(card);
