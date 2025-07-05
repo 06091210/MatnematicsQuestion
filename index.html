@@ -2,28 +2,113 @@
 <html lang="ja">
 <head>
   <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>画像図鑑</title>
-  <link rel="stylesheet" href="styles.css">
+  <title>カード図鑑 & デッキメーカー（画像付き）</title>
+  <style>
+    body { font-family: sans-serif; margin: 20px; }
+    h2 { margin-top: 40px; }
+    .card-container, .deck-container {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 10px;
+    }
+    .card {
+      border: 1px solid #ccc;
+      padding: 5px;
+      width: 120px;
+      cursor: pointer;
+      background-color: #fdfdfd;
+      text-align: center;
+      transition: transform 0.2s;
+    }
+    .card img {
+      width: 100%;
+      height: auto;
+      border-radius: 4px;
+    }
+    .card:hover {
+      background-color: #eef;
+      transform: scale(1.05);
+    }
+    .card-name {
+      margin-top: 5px;
+      font-size: 14px;
+    }
+  </style>
 </head>
 <body>
-  <h1>画像図鑑</h1>
+  <h1>🧙‍♂️ カード図鑑 ＆ デッキメーカー（画像付き）</h1>
 
-  <div class="gallery">
-    <div class="item">
-      <img src="images/スカイ.png">
-      <p>スカイ</p>
-    </div>
-    <div class="item">
-      <img src="images/スカイ(ゆるキャラ).png">
-      <p>スカイ(ゆるキャラ)</p>
-    </div>
-    <div class="item">
-      <img src="images/スカイのヘッドホン.png">
-      <p>スカイのヘッドホン</p>
-    </div>
-  </div>
+  <h2>📘 カード図鑑</h2>
+  <div id="cardList" class="card-container"></div>
 
+  <h2>🃏 あなたのデッキ（最大20枚）</h2>
+  <div id="deckList" class="deck-container"></div>
+
+  <script>
+    const cards = [
+      { id: 1, name: "火のドラゴン", image: "images/fire_dragon.jpg" },
+      { id: 2, name: "水の精霊", image: "images/water_spirit.jpg" },
+      { id: 3, name: "風の戦士", image: "images/wind_warrior.jpg" },
+      { id: 4, name: "地のゴーレム", image: "images/earth_golem.jpg" },
+      { id: 5, name: "雷の魔法使い", image: "images/thunder_mage.jpg" }
+    ];
+
+    const deck = [];
+
+    const cardList = document.getElementById('cardList');
+    const deckList = document.getElementById('deckList');
+
+    function createCardElement(card, onClick) {
+      const div = document.createElement('div');
+      div.className = 'card';
+      div.onclick = onClick;
+
+      const img = document.createElement('img');
+      img.src = card.image;
+      img.alt = card.name;
+
+      const name = document.createElement('div');
+      name.className = 'card-name';
+      name.textContent = card.name;
+
+      div.appendChild(img);
+      div.appendChild(name);
+
+      return div;
+    }
+
+    function renderCards() {
+      cardList.innerHTML = '';
+      cards.forEach(card => {
+        const cardElement = createCardElement(card, () => addToDeck(card));
+        cardList.appendChild(cardElement);
+      });
+    }
+
+    function renderDeck() {
+      deckList.innerHTML = '';
+      deck.forEach((card, index) => {
+        const cardElement = createCardElement(card, () => removeFromDeck(index));
+        deckList.appendChild(cardElement);
+      });
+    }
+
+    function addToDeck(card) {
+      if (deck.length >= 20) {
+        alert("デッキは20枚までです！");
+        return;
+      }
+      deck.push(card);
+      renderDeck();
+    }
+
+    function removeFromDeck(index) {
+      deck.splice(index, 1);
+      renderDeck();
+    }
+
+    renderCards();
+    renderDeck();
+  </script>
 </body>
 </html>
-
